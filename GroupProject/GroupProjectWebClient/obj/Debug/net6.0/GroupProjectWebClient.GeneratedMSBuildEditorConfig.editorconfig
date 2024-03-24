@@ -17,3 +17,7 @@ build_property.SupportLocalizedComponentNames =
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
 build_property.MSBuildProjectDirectory = C:\Users\PC\source\repos\PRN231-FinalProject\GroupProject\GroupProjectWebClient
 build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/PC/source/repos/PRN231-FinalProject/GroupProject/GroupProjectWebClient/Views/User/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 

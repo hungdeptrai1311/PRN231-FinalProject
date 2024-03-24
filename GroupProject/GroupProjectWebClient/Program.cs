@@ -9,7 +9,7 @@ var app = builder.Build();
 //Update-start
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Member}/{action=Index}/{id?}"
+    pattern: "{controller=User}/{action=Login}/{id?}"
     );
 //Update-end
 

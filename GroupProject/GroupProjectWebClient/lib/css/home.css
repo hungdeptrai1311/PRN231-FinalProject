@@ -1,0 +1,156 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jun 10, 2022, 4:04:05 PM
+    Author     : vuman
+*/
+
+* {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.menu a{
+    color: white;
+}
+
+.top-header a{
+    color: black;
+}
+
+.top-header a:hover{
+    color: red;
+}
+.menu a:hover{
+    color: white;
+    text-decoration: none;
+    border-bottom: 2px solid white;
+}
+
+.top-header {
+    
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+}
+
+.logo {
+    text-align: center;
+    width: 400px;
+}
+
+.text-right {
+    margin-top: 80px;
+}
+
+.text-right i:last-of-type {
+    padding-left: 20px;
+}
+
+.popup-box {
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.popup-box__stage {
+    display: flex;
+    flex-direction: row;
+    user-select: none;
+}
+
+.popup-box__item {
+    width: 700px;
+    font-size: 20px;
+}
+
+.bottom-header {
+    background-color: black;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    position: sticky;
+    top: 200px;
+    width: 100%;
+}
+
+.bottom-header nav{
+    color: white;
+    font-family: sans-serif;
+    font-weight: bold;
+    display: inline-block;
+    margin-left: 15px;
+    margin-right: 20px;
+}
+
+.banner img{
+    height: 70vh;
+    width: 195vh;
+}
+
+.top-page{
+    overflow: hidden;
+    height: 70vh;
+    width: 195vh;
+    margin: 0 auto;
+}
+
+.slide{
+    width: 20000vh;
+    -webkit-animation: slide 14s ease infinite;
+}
+
+.banner{
+    float: left;
+    height: 70vh;
+    width: 195vh;
+}
+
+@-webkit-keyframes slide {
+    20% {margin-left: 0px;}
+    30% {margin-left: -195vh;}
+    50% {margin-left: -195vh;}
+    60% {margin-left: -390vh;}
+    80% {margin-left: -390vh;}
+    90% {margin-left: -585vh;}
+}
+
+.brand-logo img{
+    width: 114px;
+    height: 88px;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+}
+
+.small-list div{
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+}
+
+.small-list img{
+    width: 115vh;
+    height: auto;
+}
+
+footer{
+    background-color: #F2F2F2;
+}
+
+footer span{
+    margin-left: 2vh;
+    font-weight: bold;
+}
+
+footer a{
+    color: black;
+}
+
+footer a:hover{
+    color: red;
+}
+
+footer ul{
+    padding-bottom: 10.5vh;
+}
