@@ -40,7 +40,7 @@ namespace BusinessObject.Models
             {
                 entity.ToTable("Brand");
 
-                entity.Property(e => e.BrandImage).IsUnicode(false);
+                entity.Property(e => e.BrandImage).HasColumnType("text");
 
                 entity.Property(e => e.BrandName).HasMaxLength(150);
 
@@ -66,7 +66,7 @@ namespace BusinessObject.Models
             {
                 entity.ToTable("Category");
 
-                entity.Property(e => e.CategoryImage).IsUnicode(false);
+                entity.Property(e => e.CategoryImage).HasColumnType("text");
 
                 entity.Property(e => e.CategoryName).HasMaxLength(50);
             });
@@ -75,14 +75,11 @@ namespace BusinessObject.Models
             {
                 entity.ToTable("Order");
 
-                entity.Property(e => e.OrderId).ValueGeneratedOnAdd();
-
                 entity.Property(e => e.Date).HasColumnType("datetime");
 
-                entity.HasOne(d => d.OrderNavigation)
-                    .WithOne(p => p.Order)
-                    .HasForeignKey<Order>(d => d.OrderId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Orders)
+                    .HasForeignKey(d => d.UserId)
                     .HasConstraintName("FK_Order_User");
             });
 
@@ -107,7 +104,7 @@ namespace BusinessObject.Models
 
                 entity.Property(e => e.Description).HasColumnType("ntext");
 
-                entity.Property(e => e.ProductImage).IsUnicode(false);
+                entity.Property(e => e.ProductImage).HasColumnType("text");
 
                 entity.Property(e => e.ProductName).HasMaxLength(150);
 

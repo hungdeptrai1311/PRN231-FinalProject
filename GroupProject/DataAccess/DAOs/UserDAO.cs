@@ -131,6 +131,20 @@ namespace DataAccess.DAOs
         }
 
 
+        public static User CheckLogin(string email, string password)
+        {
+            var user = new User();
+            try
+            {
+                using var context = new GroupProjectContext();
+                user = context.Users.FirstOrDefault(u => u.Email == email && u.Password == password);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
 
+            return user;
+        }
     }
 }

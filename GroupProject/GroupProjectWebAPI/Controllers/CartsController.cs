@@ -20,6 +20,9 @@ public class CartsController : ControllerBase
     public IEnumerable<Cart> GetCartsByUserId(int userId) => this.cartRepository.GetCartsByUserId(userId);
 
     [HttpGet]
+    public Cart GetCartsByUserIdAndProductId(int userId, int productId) => this.cartRepository.GetCartsByUserIdAndProductId(userId, productId);
+
+    [HttpGet]
     public Cart? GetCartById(int id) => this.cartRepository.GetCartById(id);
 
     [HttpPost]

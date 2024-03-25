@@ -11,12 +11,7 @@ public class CartDAO
         try
         {
             using var context = new GroupProjectContext();
-            cartList = context.Carts.Where(c => c.UserId == userId).Include(c => c.Product).ToList();
-
-            cartList.ForEach(c =>
-            {
-                if (c.Product != null) c.Product.Carts = null;
-            });
+            cartList = context.Carts.Where(c => c.UserId == userId).Include(c => c.Product).ThenInclude(p => p.Brand).ToList();
         }
         catch (Exception ex)
         {
@@ -26,6 +21,22 @@ public class CartDAO
         return cartList;
     }
 
+    public static Cart GetCartsByUserIdAndProductId(int userId, int productId)
+    {
+        var cart = new Cart();
+        try
+        {
+            using var context = new GroupProjectContext();
+            cart = context.Carts.Include(c => c.Product).ThenInclude(p => p.Brand).FirstOrDefault(c => c.UserId == userId && c.ProductId == productId);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+
+        return cart;
+    }
+
     public static Cart? GetCartById(int id)
     {
         var cart = new Cart();
@@ -33,8 +44,6 @@ public class CartDAO
         {
             using var context = new GroupProjectContext();
             cart = context.Carts.Include(c => c.Product).FirstOrDefault(c => c.CartId == id);
-
-            if (cart?.Product != null) cart.Product.Carts = null;
         }
         catch (Exception ex)
         {

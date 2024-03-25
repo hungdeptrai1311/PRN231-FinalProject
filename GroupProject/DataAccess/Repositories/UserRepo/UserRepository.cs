@@ -16,5 +16,7 @@ namespace DataAccess.Repositories.UserRepo
         public void AddUser(User user) => UserDAO.AddUser(user);
         public void DeleteUser(int id)  => UserDAO.DeleteUser(id);
         public void UpdateUser(User user) => UserDAO.UpdateUser(user);
+
+        public User CheckLogin(string email, string password) => UserDAO.CheckLogin(email, password);
     }
 }

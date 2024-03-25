@@ -9,4 +9,5 @@ public interface ICartRepository
     void       AddCart(Cart cart);
     void       UpdateCart(Cart cart);
     void       DeleteCart(int id);
+    Cart GetCartsByUserIdAndProductId(int userId, int productId);
 }

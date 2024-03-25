@@ -10,4 +10,5 @@ public class CartRepository : ICartRepository
     public void       AddCart(Cart cart)           => CartDAO.AddCart(cart);
     public void       UpdateCart(Cart cart)        => CartDAO.UpdateCart(cart);
     public void       DeleteCart(int id)           => CartDAO.DeleteCart(id);
+    public Cart GetCartsByUserIdAndProductId(int userId, int productId) => CartDAO.GetCartsByUserIdAndProductId(userId, productId);
 }

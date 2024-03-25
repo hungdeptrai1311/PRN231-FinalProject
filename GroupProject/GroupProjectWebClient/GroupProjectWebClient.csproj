@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="jQuery" Version="3.7.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
@@ -16,9 +17,122 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="lib\images\anh1.jpg">
+    <None Include="wwwroot\lib\assets\bootstrap\css\bootstrap-theme.css" />
+    <None Include="wwwroot\lib\assets\bootstrap\css\bootstrap-theme.css.map" />
+    <None Include="wwwroot\lib\assets\bootstrap\css\bootstrap-theme.min.css" />
+    <None Include="wwwroot\lib\assets\bootstrap\css\bootstrap.css" />
+    <None Include="wwwroot\lib\assets\bootstrap\css\bootstrap.css.map" />
+    <None Include="wwwroot\lib\assets\bootstrap\css\bootstrap.min.css" />
+    <None Include="wwwroot\lib\assets\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <None Include="wwwroot\lib\assets\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <None Include="wwwroot\lib\assets\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <None Include="wwwroot\lib\assets\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="wwwroot\lib\assets\bootstrap\js\bootstrap.js" />
+    <None Include="wwwroot\lib\assets\bootstrap\js\bootstrap.min.js" />
+    <None Include="wwwroot\lib\assets\bootstrap\js\npm.js" />
+    <None Include="wwwroot\lib\assets\css\bootstrap.min.css" />
+    <None Include="wwwroot\lib\assets\css\login.css" />
+    <None Include="wwwroot\lib\assets\css\login.css.map" />
+    <None Include="wwwroot\lib\assets\css\style1.css" />
+    <None Include="wwwroot\lib\assets\css\styles.css" />
+    <None Include="wwwroot\lib\assets\img\favicon.png" />
+    <None Include="wwwroot\lib\assets\img\hotel_logo.png" />
+    <None Include="wwwroot\lib\assets\img\logo.png" />
+    <None Include="wwwroot\lib\assets\img\placeholder.jpg" />
+    <None Include="wwwroot\lib\assets\img\product\product-01.jpg" />
+    <None Include="wwwroot\lib\assets\img\product\product-02.jpg" />
+    <None Include="wwwroot\lib\assets\img\product\product-03.jpg" />
+    <None Include="wwwroot\lib\assets\img\product\product-04.jpg" />
+    <None Include="wwwroot\lib\assets\img\product\product-05.jpg" />
+    <None Include="wwwroot\lib\assets\img\product\product-06.jpg" />
+    <None Include="wwwroot\lib\assets\img\product\product-07.jpg" />
+    <None Include="wwwroot\lib\assets\img\product\product-08.jpg" />
+    <None Include="wwwroot\lib\assets\img\profiles\avatar-01.jpg" />
+    <None Include="wwwroot\lib\assets\img\profiles\avatar-02.jpg" />
+    <None Include="wwwroot\lib\assets\img\profiles\avatar-03.jpg" />
+    <None Include="wwwroot\lib\assets\img\profiles\avatar-04.jpg" />
+    <None Include="wwwroot\lib\assets\img\profiles\avatar-05.jpg" />
+    <None Include="wwwroot\lib\assets\img\profiles\avatar-06.jpg" />
+    <None Include="wwwroot\lib\assets\img\profiles\avatar-07.jpg" />
+    <None Include="wwwroot\lib\assets\img\profiles\avatar-08.jpg" />
+    <None Include="wwwroot\lib\assets\img\profiles\avatar-09.jpg" />
+    <None Include="wwwroot\lib\assets\img\profiles\avatar-10.jpg" />
+    <None Include="wwwroot\lib\assets\img\profiles\avatar-11.jpg" />
+    <None Include="wwwroot\lib\assets\img\profiles\avatar-12.jpg" />
+    <None Include="wwwroot\lib\assets\img\profiles\avatar-13.jpg" />
+    <None Include="wwwroot\lib\assets\img\profiles\avatar-15.jpg" />
+    <None Include="wwwroot\lib\assets\img\profiles\avatar-16.jpg" />
+    <None Include="wwwroot\lib\assets\img\profiles\avatar-17.jpg" />
+    <None Include="wwwroot\lib\assets\img\sent.png" />
+    <None Include="wwwroot\lib\assets\img\video-call.jpg" />
+    <None Include="wwwroot\lib\assets\plugins\datatables\datatables.min.css" />
+    <None Include="wwwroot\lib\assets\plugins\datatables\datatables.min.js" />
+    <None Include="wwwroot\lib\assets\plugins\datatables\jquery.dataTables.min.js" />
+    <None Include="wwwroot\lib\assets\plugins\fontawesome\css\all.css" />
+    <None Include="wwwroot\lib\assets\plugins\fontawesome\css\all.min.css" />
+    <None Include="wwwroot\lib\assets\plugins\fontawesome\css\fontawesome.min.css" />
+    <None Include="wwwroot\lib\assets\plugins\fontawesome\webfonts\fa-brands-400-1.eot" />
+    <None Include="wwwroot\lib\assets\plugins\fontawesome\webfonts\fa-brands-400.eot" />
+    <None Include="wwwroot\lib\assets\plugins\fontawesome\webfonts\fa-brands-400.svg" />
+    <None Include="wwwroot\lib\assets\plugins\fontawesome\webfonts\fa-brands-400.ttf" />
+    <None Include="wwwroot\lib\assets\plugins\fontawesome\webfonts\fa-brands-400.woff" />
+    <None Include="wwwroot\lib\assets\plugins\fontawesome\webfonts\fa-brands-400.woff2" />
+    <None Include="wwwroot\lib\assets\plugins\fontawesome\webfonts\fa-regular-400-1.eot" />
+    <None Include="wwwroot\lib\assets\plugins\fontawesome\webfonts\fa-regular-400.eot" />
+    <None Include="wwwroot\lib\assets\plugins\fontawesome\webfonts\fa-regular-400.svg" />
+    <None Include="wwwroot\lib\assets\plugins\fontawesome\webfonts\fa-regular-400.ttf" />
+    <None Include="wwwroot\lib\assets\plugins\fontawesome\webfonts\fa-regular-400.woff" />
+    <None Include="wwwroot\lib\assets\plugins\fontawesome\webfonts\fa-regular-400.woff2" />
+    <None Include="wwwroot\lib\assets\plugins\fontawesome\webfonts\fa-solid-900-1.eot" />
+    <None Include="wwwroot\lib\assets\plugins\fontawesome\webfonts\fa-solid-900.eot" />
+    <None Include="wwwroot\lib\assets\plugins\fontawesome\webfonts\fa-solid-900.svg" />
+    <None Include="wwwroot\lib\assets\plugins\fontawesome\webfonts\fa-solid-900.ttf" />
+    <None Include="wwwroot\lib\assets\plugins\fontawesome\webfonts\fa-solid-900.woff" />
+    <None Include="wwwroot\lib\assets\plugins\fontawesome\webfonts\fa-solid-900.woff2" />
+    <None Include="wwwroot\lib\assets\plugins\fullcalendar\fullcalendar.min.css" />
+    <None Include="wwwroot\lib\assets\plugins\fullcalendar\fullcalendar.min.js" />
+    <None Include="wwwroot\lib\assets\plugins\fullcalendar\jquery.fullcalendar.js" />
+    <None Include="wwwroot\lib\assets\plugins\morris\morris.css" />
+    <None Include="wwwroot\lib\assets\plugins\morris\morris.min.js" />
+    <None Include="wwwroot\lib\assets\plugins\raphael\raphael.min.js" />
+    <None Include="wwwroot\lib\assets\plugins\slimscroll\jquery.slimscroll.min.js" />
+    <None Include="wwwroot\lib\assets\plugins\summernote\dist\font\summernote-1.eot" />
+    <None Include="wwwroot\lib\assets\plugins\summernote\dist\font\summernote.eot" />
+    <None Include="wwwroot\lib\assets\plugins\summernote\dist\font\summernote.ttf" />
+    <None Include="wwwroot\lib\assets\plugins\summernote\dist\font\summernote.woff" />
+    <None Include="wwwroot\lib\assets\plugins\summernote\dist\font\summernote.woff2" />
+    <None Include="wwwroot\lib\assets\plugins\summernote\dist\summernote-bs4.css" />
+    <None Include="wwwroot\lib\assets\plugins\summernote\dist\summernote-bs4.min.js" />
+    <None Include="wwwroot\lib\css\home.css" />
+    <None Include="wwwroot\lib\css\manager.css" />
+    <None Include="wwwroot\lib\css\product.css" />
+    <None Include="wwwroot\lib\css\style.css" />
+    <None Include="wwwroot\lib\css\styleUserProfile.css" />
+    <None Include="wwwroot\lib\images\anh1.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="wwwroot\lib\images\banner2\Adidas.jpg" />
+    <None Include="wwwroot\lib\images\banner2\Bitis.jpg" />
+    <None Include="wwwroot\lib\images\banner2\Converse.jpg" />
+    <None Include="wwwroot\lib\images\banner2\Nike.jpg" />
+    <None Include="wwwroot\lib\images\banner2\Puma.jpg" />
+    <None Include="wwwroot\lib\images\banner2\Vans.jpg" />
+    <None Include="wwwroot\lib\images\banner\adidas-banner.jpg" />
+    <None Include="wwwroot\lib\images\banner\Chuck-70-banner.jpg" />
+    <None Include="wwwroot\lib\images\banner\nike-banner.jpeg" />
+    <None Include="wwwroot\lib\images\banner\vans-banner.jpg" />
+    <None Include="wwwroot\lib\images\icon.png" />
+    <None Include="wwwroot\lib\images\logo.png" />
+    <None Include="wwwroot\lib\images\logo\adidas-logo.png" />
+    <None Include="wwwroot\lib\images\logo\bitis-logo.png" />
+    <None Include="wwwroot\lib\images\logo\converse-logo.jpg" />
+    <None Include="wwwroot\lib\images\logo\nike-logo.jpg" />
+    <None Include="wwwroot\lib\images\logo\puma-logo.jpg" />
+    <None Include="wwwroot\lib\images\logo\vans-logo.jpg" />
+    <None Include="wwwroot\lib\images\User.jpg" />
+    <None Include="wwwroot\lib\js\home.js" />
+    <None Include="wwwroot\lib\js\manager.js" />
+    <None Include="wwwroot\lib\js\Validator.js" />
   </ItemGroup>
 
 </Project>

@@ -8,6 +8,7 @@ namespace BusinessObject.Models
         public User()
         {
             Carts = new HashSet<Cart>();
+            Orders = new HashSet<Order>();
         }
 
         public int UserId { get; set; }
@@ -19,7 +20,7 @@ namespace BusinessObject.Models
         public int RoleId { get; set; }
 
         public virtual Role Role { get; set; } = null!;
-        public virtual Order Order { get; set; } = null!;
         public virtual ICollection<Cart> Carts { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

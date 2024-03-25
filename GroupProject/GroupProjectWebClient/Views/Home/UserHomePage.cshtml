@@ -1,0 +1,147 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@using BusinessObject.Models
+@model List<Product>
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="~/lib/css/home.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+                integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+                crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+                integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+                crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+                integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+                crossorigin="anonymous"></script>
+        <script src="js/home.js"></script>
+        <title>EightShoes</title>
+        <link href="~/lib/images/icon.png" rel="icon">
+        <script src="https://kit.fontawesome.com/72eb2ee2e2.js" crossorigin="anonymous"></script>
+        <script src="~/lib/js/jquery-1.11.1.min.js"></script>
+        <script src="js/header.js"></script>
+    </head>
+
+    <header>
+        <div class="top-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6"></div>
+                    <div class="col-md-6 col-sm-12">
+                        Hotline: <a href="tel: 123456789" style="font-weight: bold">0123456789</a> |
+                        <a asp-controller="User" asp-action="Profile">
+                            <i class="fa-solid fa-user"></i>
+                            @ViewBag.User.Name
+                        </a>
+                        |
+                        <a asp-controller="User" asp-action="Logout">
+                            <i class="fa-solid fa-lock"></i> Đăng xuất
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mid-header">
+            <div class="mid1-header container">
+                <div class="row">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-6">
+                        <a asp-controller="Home" asp-action="UserHomePage">
+                            <img class="logo" src="~/lib/images/logo.png">
+                        </a>
+                    </div>
+                    <div class="col-sm-3 text-right">
+                    <a asp-controller="Cart" asp-action="CartDetail" style="color:black"><i class="fa-solid fa-cart-shopping"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="mid2-header">
+                <div class="popup-box">
+                    <div class="popup-box__stage">
+                        <div class="popup-box__item">Email hỗ trợ : linhtinh@gmail.com</div>
+                        <div class="popup-box__item">Miễn phí vận chuyển toàn quốc</div>
+                        <div class="popup-box__item">
+                            Đăng ký hoặc gọi 0123456789 để cập nhật chương trình khuyến mãi
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-header">
+            <div class="container">
+                <div class="row">
+                    <div class="menu">
+                        @foreach (Brand brand in @ViewBag.Brands)
+                        {
+                            <nav><a asp-controller="Brand" asp-action="Index" asp-route-id="@brand.BrandId">@brand.BrandName</a></nav>
+                        }
+                        <nav><a style="color: red" href="">KHUYẾN MÃI</a></nav>
+                    </div>
+                    <div class="search">
+                        <input name="search" class="sb-search-input" placeholder="Tìm kiếm" type="text" value="">
+                        <button type="button"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <body>
+        <div class="top-page ">
+            <div class="slide">
+                <a class="banner" href="brand?brand=Converse"><img src="~/lib/images/banner/Chuck-70-banner.jpg" alt="This is Chuck taylor 70s banner"></a>
+                <a class="banner" href="brand?brand=Vans"><img src="~/lib/images/banner/vans-banner.jpg" alt="This is Vans banner"></a>
+                <a class="banner" href="brand?brand=Adidas"><img src="~/lib/images/banner/adidas-banner.jpg" alt="This is Addidas banner"></a>
+                <a class="banner" href="brand?brand=Nike"><img src="~/lib/images/banner/nike-banner.jpeg" alt="This is Nike banner"></a>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="brand-logo container">
+                <div class="row">
+                    @foreach (Brand brand in ViewBag.Brands)
+                    {
+                        <div class="col-sm-2">
+                            <a asp-controller="Brand" asp-action="Index" asp-route-id="@brand.BrandId"><img src="@brand.BrandImage" alt="Converse-logo"></a>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="small-list container">
+                <div class="small-converse-list">
+                    <img src="~/lib/images/banner2/Converse.jpg" alt="Converse-banner">
+                </div>
+                <div class="small-vans-list">
+                    <img src="~/lib/images/banner2/Vans.jpg" alt="Vans-banner">
+                </div>
+                <div class="small-puma-list">
+                    <img src="~/lib/images/banner2/Puma.jpg" alt="Puma-banner">
+                </div>
+                <div class="small-adidas-list">
+                    <img src="~/lib/images/banner2/Adidas.jpg" alt="Adidas-banner">
+                </div>
+                <div class="small-nike-list">
+                    <img src="~/lib/images/banner2/Nike.jpg" alt="Nike-banner">
+                </div>
+                <div class="small-bitis-list">
+                    <img src="~/lib/images/banner2/Bitis.jpg" alt="Bitis-banner">
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

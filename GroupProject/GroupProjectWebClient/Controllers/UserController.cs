@@ -2,11 +2,21 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Diagnostics.Metrics;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace GroupProjectWebClient.Controllers
 {
     public class UserController : Controller
     {
+        public async Task<User> GetUserFromToken()
+        {
+            var handler = new JwtSecurityTokenHandler();
+            var jsonToken = handler.ReadToken(HttpContext.Session.GetString("token"));
+            int id = int.Parse(((JwtSecurityToken)jsonToken).Claims.FirstOrDefault(e => e.Type == "nameid")?.Value!);
+            var user = await this.GetUserByUserIdAsync(id);
+            return user;
+        }
+
         public IActionResult Login(string message = "")
         {
             ViewBag.Message = message;
@@ -16,25 +26,24 @@ namespace GroupProjectWebClient.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(string email, string password)
         {
-            var m = await this.GetUserByEmailAndPasswordAsync(email, password);
-            if (m == null || m?.UserId == 0) return RedirectToAction(nameof(Login), new { message = "Your email or password is wrong" });
-            else
+            if(await this.CheckLogin(email, password))
             {
-                if (m?.RoleId == 1) return RedirectToAction(nameof(AdminPage), new { id = m?.UserId });
-                else return RedirectToAction(nameof(UserPage), new { id = m?.UserId }); ;
-            }
-        }
+                var user = await this.GetUserFromToken();
 
-        public async Task<IActionResult> UserPage(int id)
-        {
-            var user = await this.GetUserByUserIdAsync(id);
-            return View(user);
-        }
+				if (user?.RoleId == 1) return RedirectToAction("AdminHomePage", "Home", new { id = user?.UserId });
+				else return RedirectToAction("UserHomePage", "Home", new { id = user?.UserId }); ;
+			}
 
-        public IActionResult AdminPage()
+			return RedirectToAction(nameof(Login), new { message = "Your email or password is wrong" });
+		}
+
+        public IActionResult Register(string message = "")
         {
+            ViewBag.Message = message;
             return View();
         }
+
+        
 
         public async Task<IActionResult> Profile(int id, string message = "")
         {
@@ -90,19 +99,19 @@ namespace GroupProjectWebClient.Controllers
             return RedirectToAction(nameof(AdminUserManagement));
         }
 
-        public async Task<User> GetUserByEmailAndPasswordAsync(string email, string password)
+        public async Task<bool> CheckLogin(string email, string password)
         {
             try
             {
-                string link = $"http://localhost:5052/api/Member/FindMemberByEmailAndPassword?email={email}&password={password}";
+                string link = $"http://localhost:5152/api/User/CheckLogin?email={email}&password={password}";
                 using (HttpClient client = new HttpClient())
                 {
                     using (HttpResponseMessage res = await client.GetAsync(link))
                     {
-                        using (HttpContent content = res.Content)
+                        if(res.StatusCode is System.Net.HttpStatusCode.OK)
                         {
-                            string data = content.ReadAsStringAsync().Result;
-                            return JsonConvert.DeserializeObject<User>(data);
+                            HttpContext.Session.SetString("token", res.Content.ReadAsStringAsync().Result.ToString());
+                            return true;
                         }
                     }
                 }
@@ -111,14 +120,14 @@ namespace GroupProjectWebClient.Controllers
             {
             }
 
-            return null!;
+            return false;
         }
 
         public async Task<List<User>> GetUsersAsync()
         {
             try
             {
-                string link = $"http://localhost:5052/api/Member";
+                string link = $"http://localhost:5152/api/User/GetAllUsers";
                 using (HttpClient client = new HttpClient())
                 {
                     using (HttpResponseMessage res = await client.GetAsync(link))
@@ -142,7 +151,7 @@ namespace GroupProjectWebClient.Controllers
         {
             try
             {
-                string link = $"http://localhost:5052/api/Member/FindMemberById?id={id}";
+                string link = $"http://localhost:5152/api/User/GetUserById?id={id}";
                 using (HttpClient client = new HttpClient())
                 {
                     using (HttpResponseMessage res = await client.GetAsync(link))
@@ -166,7 +175,7 @@ namespace GroupProjectWebClient.Controllers
         {
             try
             {
-                string link = $"http://localhost:5052/api/Member";
+                string link = $"http://localhost:5152/api/User/UpdateUser";
                 using (HttpClient client = new HttpClient())
                 {
                     using (HttpResponseMessage res = await client.PutAsJsonAsync(link, member))
@@ -185,7 +194,7 @@ namespace GroupProjectWebClient.Controllers
         {
             try
             {
-                string link = $"http://localhost:5052/api/Member?id={id}";
+                string link = $"http://localhost:5152/api/User/DeleteUser?id={id}";
                 using (HttpClient client = new HttpClient())
                 {
                     using (HttpResponseMessage res = await client.DeleteAsync(link))
@@ -202,7 +211,7 @@ namespace GroupProjectWebClient.Controllers
         {
             try
             {
-                string link = $"http://localhost:5052/api/Member";
+                string link = $"http://localhost:5152/api/User/AddUser";
                 using (HttpClient client = new HttpClient())
                 {
                     using (HttpResponseMessage res = await client.PostAsJsonAsync(link, user))
@@ -214,5 +223,29 @@ namespace GroupProjectWebClient.Controllers
             {
             }
         }
-    }
+
+		public async Task<List<Category>> GetCategoriesAsync()
+		{
+			try
+			{
+				string link = $"http://localhost:5152/api/Categories/GetCategories";
+				using (HttpClient client = new HttpClient())
+				{
+					using (HttpResponseMessage res = await client.GetAsync(link))
+					{
+						using (HttpContent content = res.Content)
+						{
+							string data = content.ReadAsStringAsync().Result;
+							return JsonConvert.DeserializeObject<List<Category>>(data);
+						}
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+			}
+
+			return null!;
+		}
+	}
 }

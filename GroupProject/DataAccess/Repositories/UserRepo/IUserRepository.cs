@@ -15,6 +15,7 @@ namespace DataAccess.Repositories.UserRepo
         public void AddUser(User user);
         public void DeleteUser(int id);
         public void UpdateUser(User user);
+        User CheckLogin(string email, string password);
 
     }
 }

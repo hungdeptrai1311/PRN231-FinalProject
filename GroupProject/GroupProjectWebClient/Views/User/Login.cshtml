@@ -1,4 +1,4 @@
-﻿
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -16,7 +16,7 @@
             <div style="border: 0; border-radius: 27.5px; box-shadow: 0 10px 30px 0 rgba(172, 168, 168, 0.43); overflow: hidden;">
                 <div class="row no-gutters">
                     <div class="col-md-5">
-                        <img src="https://images.foody.vn/images/15802187_240980959675412_1010429191398621184_n.jpg" alt="login" class="img-fluid">
+                        <img src="https://rubicmarketing.com/wp-content/uploads/2021/08/thiet-ke-bao-bi-banh-keo-4.jpg" alt="login" class="img-fluid">
                     </div>
                     <div class="col-md-7">
                         <div class="container">
@@ -26,22 +26,22 @@
                             <p style="font-size: 25px; color: #000; font-weight: normal; margin-bottom: 23px; ">Đăng nhập </p>
 
 
-                            <form action="login" method="post" id="form">
+                            <form asp-controller="User" asp-action="Login" method="post" id="form">
                                 <div class="text-danger" style="margin-bottom: 20px">@ViewBag.Message</div>
                                 <div class="form-group ">
 
-                                    <label for="account">Tài khoản </label>
-                                    <input type="text" name="account" id="account" class="form-control" placeholder="Tên tài khoản" required value="">
+                                    <label for="email">Email </label>
+                                    <input type="text" name="email" id="email" class="form-control" placeholder="Email" required value="">
 
                                 </div>
 
                                 <div class="form-group ">
 
-                                    <label for="pass">Mật khẩu</label>
+                                    <label for="password">Mật khẩu</label>
                                     <div style="margin-left: 295px; position: absolute; margin-top:10px; cursor: pointer" id="eye">
                                         <i class="far fa-eye"></i>
                                     </div>
-                                    <input type="password" name="pass" id="pass" class="form-control" placeholder="***********" required value="">
+                                    <input type="password" name="password" id="password" class="form-control" placeholder="***********" required value="">
 
                                 </div>
                                 <br />
@@ -50,7 +50,7 @@
                             <br />
                             <a href="Forgot.jsp" class="forgot-password-link">Quên mật khẩu?</a>
                             <br />
-                            <p>Không có tài khoản? <a href="Register.jsp" style="color: #0D6EFD">Đăng ký ngay</a></p>
+                            <p>Không có tài khoản? <a asp-controller="User" asp-action="Register" style="color: #0D6EFD">Đăng ký ngay</a></p>
                         </div>
                     </div>
                 </div>

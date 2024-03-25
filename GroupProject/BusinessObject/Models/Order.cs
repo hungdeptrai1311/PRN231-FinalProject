@@ -14,7 +14,7 @@ namespace BusinessObject.Models
         public int? UserId { get; set; }
         public DateTime Date { get; set; }
 
-        public virtual User OrderNavigation { get; set; } = null!;
+        public virtual User? User { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }
