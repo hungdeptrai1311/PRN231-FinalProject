@@ -12,19 +12,6 @@ public class BrandDAO
         {
             using var context = new GroupProjectContext();
             brandList = context.Brands.Include(b => b.Products).ToList();
-
-            brandList.ForEach(b =>
-            {
-                if (b.Products != null)
-                {
-                    foreach (var p in b.Products)
-                    {
-                        p.Brand = null;
-                    }
-                }
-
-                ;
-            });
         }
         catch (Exception ex)
         {
@@ -41,14 +28,6 @@ public class BrandDAO
         {
             using var context = new GroupProjectContext();
             brand = context.Brands.Include(b => b.Products).FirstOrDefault(b => b.BrandId == id);
-
-            if (brand?.Products != null)
-            {
-                foreach (var p in brand.Products)
-                {
-                    p.Brand = null;
-                }
-            }
         }
         catch (Exception ex)
         {

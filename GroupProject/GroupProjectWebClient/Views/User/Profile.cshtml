@@ -1,0 +1,317 @@
+﻿@using BusinessObject.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model User
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="~/lib/css/home.css">
+        <link rel="stylesheet" href="~/lib/css/product.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+                integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+                crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+                integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+                crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+                integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+                crossorigin="anonymous"></script>
+        <script src="~/lib/js/home.js"></script>
+        <title><Profile></title>
+        <link href="images/icon.png" rel="icon">
+        <script src="https://kit.fontawesome.com/72eb2ee2e2.js" crossorigin="anonymous"></script>
+        <script src="~/lib/js/jquery-1.11.1.min.js"></script>
+        <script src="~/lib/js/header.js"></script>
+    </head>
+
+    <header>
+        <div class="top-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6"></div>
+                    <div class="col-md-6 col-sm-12">
+                        Hotline: <a href="tel: 123456789" style="font-weight: bold">0123456789</a> |
+                        <a asp-controller="User" asp-action="Profile">
+                            <i class="fa-solid fa-user"></i>
+                            @Model.Name
+                        </a>
+                        |
+                        <a asp-controller="User" asp-action="Logout">
+                            <i class="fa-solid fa-lock"></i> Đăng xuất
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mid-header">
+            <div class="mid1-header container">
+                <div class="row">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-6">
+                        <a asp-controller="Home" asp-action="UserHomePage">
+                            <img class="logo" src="~/lib/images/logo.png">
+                        </a>
+                    </div>
+                    <div class="col-sm-3 text-right">
+                        <a asp-controller="Cart" asp-action="CartDetail" style="color:black"><i class="fa-solid fa-cart-shopping"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="mid2-header">
+                <div class="popup-box">
+                    <div class="popup-box__stage">
+                        <div class="popup-box__item">Email hỗ trợ : linhtinh@gmail.com</div>
+                        <div class="popup-box__item">Miễn phí vận chuyển toàn quốc</div>
+                        <div class="popup-box__item">
+                            Đăng ký hoặc gọi 0123456789 để cập nhật chương trình khuyến mãi
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-header">
+            <div class="container">
+                <div class="row">
+                    <div class="menu">
+                        @foreach (Brand brand in @ViewBag.Brands)
+                        {
+                            <nav><a asp-controller="Brand" asp-action="Index" asp-route-id="@brand.BrandId">@brand.BrandName</a></nav>
+                        }
+                        <nav><a style="color: red" href="">KHUYẾN MÃI</a></nav>
+                    </div>
+                    <div class="search">
+                        <input name="search" class="sb-search-input" placeholder="Tìm kiếm" type="text" value="">
+                        <button type="button"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <body>
+        <section class="py-5 my-5">
+
+            <div class="container">
+                <a asp-controller="Home" asp-action="UserHomePage" style="color: black">Trang chủ</a>
+                >
+                <a href="profile" style="color: black"  >User Profile</a>
+                <form asp-controller="User" asp-action="Profile" method="post">
+                    <div class="bg-white shadow rounded-lg d-block d-sm-flex">
+                        <div class="profile-tab-nav border-right">
+                            <div class="p-4">
+                                <div class="img-circle text-center mb-3">
+                                    <img src="~/lib/images/User.jpg" alt="Image" class="shadow">
+                                </div>
+                                <h4 class="text-center">@Model.Name</h4>
+                            </div>
+                            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                <a class="nav-link active" id="account-tab" data-toggle="pill" href="#account" role="tab" aria-controls="account" aria-selected="true">
+                                    <i class="fa fa-home text-center mr-1"></i> 
+                                    Tài Khoản
+                                </a>
+                                <a class="nav-link" id="password-tab" data-toggle="pill" href="#password" role="tab" aria-controls="password" aria-selected="false">
+                                    <i class="fa fa-key text-center mr-1"></i> 
+                                    Mật Khẩu
+                                </a>
+                                
+                                <a class="nav-link" id="application-tab" data-toggle="pill" href="#history" role="tab" aria-controls="history" aria-selected="false">
+                                    <i class="fa fa-tv text-center mr-1"></i> 
+                                    Lịch sử mua hàng
+                                </a>
+                            </div>
+                        </div>
+                        <div class="tab-content p-4 p-md-5" id="v-pills-tabContent">
+
+                            <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
+                                <h3 class="mb-4">Cài đặt tài khoản</h3>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="name">Họ và tên</label>
+                                            <input type="text" class="form-control" name="name" id="name" value="@Model.Name">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="email">Email</label>
+                                            <input type="email" class="form-control" name="email" id="email" value="@Model.Email" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="phone">Số điện thoại</label>
+                                            <input type="text" class="form-control" name="phone" id="phone" value="@Model.Phone}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="address">Địa chỉ</label>
+                                            <input type="text" class="form-control" name="address" id="address" value="@Model.Address">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div>
+
+                                    <input  class="btn btn-primary" type="submit" name="edit" value="Chỉnh sửa">
+
+                                </div>
+
+
+                            </div>
+
+
+                            <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
+                                <h3 class="mb-4">Cài đặt mật khẩu</h3>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="oldpass" >Mật khẩu cũ</label>
+                                            <div style="margin-left: 335px; position: absolute; margin-top:10px; cursor: pointer" id="eye">
+                                                <i class="far fa-eye"></i>
+                                            </div>
+                                            <input type="password" name="oldpass" id="oldpass" class="form-control" placeholder="***********">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="pass" >Mật khẩu mới</label>
+                                            <div style="margin-left: 335px; position: absolute; margin-top:10px; cursor: pointer" id="eye1">
+                                                <i class="far fa-eye"></i>
+                                            </div>
+                                            <input type="password" name="pass" id="pass" class="form-control" placeholder="***********">
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div>
+                                    <button class="btn btn-primary">Cập nhật</button>
+                                    <button class="btn btn-light">Hủy</button>
+                                </div>
+                            </div>
+                            
+                            <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
+                                <h3 class="mb-4">Lịch sử mua hàng</h3>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <table class="table-striped mt-5 mb-5">
+                                                @if (ViewBag.Orders.Count == 0)
+                                                {
+                                                    <h1 style="text-align: center">Bạn chưa từng mua gì</h1>
+                                                }
+                                                else
+                                                {
+                                                    <thead>
+                                                        <tr>
+                                                            <td class="qc-date">Date</td>
+                                                            <td class="qc-name">Tên sản phẩm</td>
+                                                            <td class="qc-total">Tổng cộng</td>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+                                                        @{
+                                                            var count = 0;
+                                                        }
+                                                        @foreach (Order order in ViewBag.Orders)
+                                                        {
+                                                            {
+                                                                count++;
+                                                            }
+                                                            <tr>
+                                                                <td class="qc-name">
+                                                                    @order.Date
+                                                                </td>
+
+                                                                <td class="qc-name">
+                                                                    @foreach(OrderDetail orderDetail in order.OrderDetails)
+                                                                    {
+                                                                        <a asp-controller="Product" asp-action="ProductDetail" asp-route-id=""><img src="@orderDetail.Product.ProductImage" style="width: 45px;" /></a>
+                                                                        <a asp-controller="Product" asp-action="ProductDetail" asp-route-id="@orderDetail.ProductId">@orderDetail.Product.ProductName</a>
+                                                                        <span> x @orderDetail.Quantity</span>
+                                                                    }
+                                                                </td>
+
+                                                                <td class="qc-total">
+                                                                    @{
+                                                                        int sum = 0;
+                                                                        foreach (OrderDetail orderDetail in order.OrderDetails)
+                                                                        {
+                                                                            sum += (int)(orderDetail.Product.Price * orderDetail.Quantity);
+                                                                        }
+                                                                    }
+
+                                                                    <span>@sum đ</span>
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                }
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </body>
+    <script>
+        $(document).ready(function () {
+            $('#eye').click(function () {
+                $(this).toggleClass('open');
+                $(this).children('i').toggleClass('fa-eye-slash fa-eye');
+                if ($(this).hasClass('open')) {
+                    $(this).next().attr('type', 'text');
+                } else {
+                    $(this).next().attr('type', 'password');
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#eye1').click(function () {
+                $(this).toggleClass('open');
+                $(this).children('i').toggleClass('fa-eye-slash fa-eye');
+                if ($(this).hasClass('open')) {
+                    $(this).next().attr('type', 'text');
+                } else {
+                    $(this).next().attr('type', 'password');
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#eye2').click(function () {
+                $(this).toggleClass('open');
+                $(this).children('i').toggleClass('fa-eye-slash fa-eye');
+                if ($(this).hasClass('open')) {
+                    $(this).next().attr('type', 'text');
+                } else {
+                    $(this).next().attr('type', 'password');
+                }
+            });
+        });
+    </script>
+</html>

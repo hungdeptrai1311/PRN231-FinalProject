@@ -45,11 +45,17 @@ namespace GroupProjectWebClient.Controllers
         }
 
 
-        public async Task<IActionResult> Profile(int id, string message = "")
+        public async Task<IActionResult> Profile(string message = "")
         {
-            var member = await this.GetUserByUserIdAsync(id);
-            ViewBag.Noti = message;
-            return View(member);
+            var user = await this.GetUserFromToken();
+            var brands = await this.GetBrandsAsync();
+            var orders = await this.GetOrdersByUserIdAsync(user.UserId);
+
+            ViewBag.Message = message;
+            ViewBag.Brands = brands;
+            ViewBag.Orders = orders;
+
+            return View(user);
         }
 
         [HttpPost]
@@ -81,6 +87,7 @@ namespace GroupProjectWebClient.Controllers
 
         public async Task<IActionResult> DeleteUser(int userId)
         {
+
             await this.RemoveUserAsync(userId);
             return RedirectToAction(nameof(AdminUserManagement));
         }
@@ -186,7 +193,6 @@ namespace GroupProjectWebClient.Controllers
             catch (Exception ex)
             {
             }
-
             return false;
         }
 
@@ -224,11 +230,35 @@ namespace GroupProjectWebClient.Controllers
             }
         }
 
-        public async Task<List<Category>> GetCategoriesAsync()
+		public async Task<List<Category>> GetCategoriesAsync()
+		{
+			try
+			{
+				string link = $"http://localhost:5152/api/Categories/GetCategories";
+				using (HttpClient client = new HttpClient())
+				{
+					using (HttpResponseMessage res = await client.GetAsync(link))
+					{
+						using (HttpContent content = res.Content)
+						{
+							string data = content.ReadAsStringAsync().Result;
+							return JsonConvert.DeserializeObject<List<Category>>(data);
+						}
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+			}
+
+			return null!;
+		}
+
+        public async Task<List<Brand>> GetBrandsAsync()
         {
             try
             {
-                string link = $"http://localhost:5152/api/Categories/GetCategories";
+                string link = $"http://localhost:5152/api/Brands/GetBrands";
                 using (HttpClient client = new HttpClient())
                 {
                     using (HttpResponseMessage res = await client.GetAsync(link))
@@ -236,7 +266,7 @@ namespace GroupProjectWebClient.Controllers
                         using (HttpContent content = res.Content)
                         {
                             string data = content.ReadAsStringAsync().Result;
-                            return JsonConvert.DeserializeObject<List<Category>>(data);
+                            return JsonConvert.DeserializeObject<List<Brand>>(data);
                         }
                     }
                 }
@@ -247,5 +277,29 @@ namespace GroupProjectWebClient.Controllers
 
             return null!;
         }
-    }
+
+        public async Task<List<Order>> GetOrdersByUserIdAsync(int userId)
+        {
+            try
+            {
+                string link = $"http://localhost:5152/api/Orders/GetOrdersByUserId?id={userId}";
+                using (HttpClient client = new HttpClient())
+                {
+                    using (HttpResponseMessage res = await client.GetAsync(link))
+                    {
+                        using (HttpContent content = res.Content)
+                        {
+                            string data = content.ReadAsStringAsync().Result;
+                            return JsonConvert.DeserializeObject<List<Order>>(data);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+
+			return null!;
+		}
+	}
 }

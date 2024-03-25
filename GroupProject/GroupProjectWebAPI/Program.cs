@@ -2,6 +2,8 @@ using BusinessObject.Models;
 using DataAccess.Repositories.BrandRepo;
 using DataAccess.Repositories.CartDAO;
 using DataAccess.Repositories.CategoryRepo;
+using DataAccess.Repositories.OrderDetailRepo;
+using DataAccess.Repositories.OrderRepo;
 using DataAccess.Repositories.ProductRepo;
 using DataAccess.Repositories.UserRepo;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -19,6 +21,8 @@ builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IBrandRepository, BrandRepository>();
 builder.Services.AddScoped<ICartRepository, CartRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
 
 builder.Services.AddAuthentication(options =>
 {

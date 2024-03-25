@@ -47,6 +47,38 @@ namespace GroupProjectWebClient.Controllers
 
         public async Task<IActionResult> Checkout()
         {
+            var user = await this.GetUserFromToken();
+            var carts = await this.GetCartByUserIdAsync(user.UserId);
+            var brands = await this.GetBrandsAsync();
+
+            ViewBag.Brands = brands;
+            ViewBag.User = user;
+
+            Order order = new Order
+            {
+                UserId = user.UserId,
+                Date = DateTime.Now
+            };
+
+            await this.InsertOrderAsync(order);
+            var orderId = await this.GetCurrentOrderId();
+            carts.ForEach(async cart =>
+            {
+                OrderDetail orderDetail = new OrderDetail
+                {
+                    OrderId = orderId,
+                    ProductId = cart.ProductId,
+                    Quantity = cart.Quantity
+                };
+
+                await this.InsertOrderDetailAsync(orderDetail);
+            });
+
+            carts.ForEach(async cart =>
+            {
+                await this.RemoveCartAsync(cart.CartId);
+            });
+
             return View();
         }
 
@@ -107,6 +139,23 @@ namespace GroupProjectWebClient.Controllers
             return null!;
         }
 
+        public async Task RemoveCartAsync(int id)
+        {
+            try
+            {
+                string link = $"http://localhost:5152/api/Carts/DeleteCart?id={id}";
+                using (HttpClient client = new HttpClient())
+                {
+                    using (HttpResponseMessage res = await client.DeleteAsync(link))
+                    {
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
         public async Task<User> GetUserByUserIdAsync(int id)
         {
             try
@@ -129,6 +178,30 @@ namespace GroupProjectWebClient.Controllers
             }
 
             return null!;
+        }
+
+        public async Task<int> GetCurrentOrderId()
+        {
+            try
+            {
+                string link = $"http://localhost:5152/api/Orders/GetCurrentOrderId";
+                using (HttpClient client = new HttpClient())
+                {
+                    using (HttpResponseMessage res = await client.GetAsync(link))
+                    {
+                        using (HttpContent content = res.Content)
+                        {
+                            string data = content.ReadAsStringAsync().Result;
+                            return JsonConvert.DeserializeObject<int>(data);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return 0;
         }
 
         public async Task<List<Brand>> GetBrandsAsync()
@@ -180,6 +253,40 @@ namespace GroupProjectWebClient.Controllers
                 using (HttpClient client = new HttpClient())
                 {
                     using (HttpResponseMessage res = await client.PutAsJsonAsync(link, cart))
+                    {
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        public async Task InsertOrderAsync(Order order)
+        {
+            try
+            {
+                string link = $"http://localhost:5152/api/Orders/AddOrder";
+                using (HttpClient client = new HttpClient())
+                {
+                    using (HttpResponseMessage res = await client.PostAsJsonAsync(link, order))
+                    {
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        public async Task InsertOrderDetailAsync(OrderDetail orderDetail)
+        {
+            try
+            {
+                string link = $"http://localhost:5152/api/OrderDetails/AddOrderDetail";
+                using (HttpClient client = new HttpClient())
+                {
+                    using (HttpResponseMessage res = await client.PostAsJsonAsync(link, orderDetail))
                     {
                     }
                 }
