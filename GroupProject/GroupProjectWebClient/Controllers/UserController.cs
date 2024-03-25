@@ -10,10 +10,10 @@ namespace GroupProjectWebClient.Controllers
     {
         public async Task<User> GetUserFromToken()
         {
-            var handler = new JwtSecurityTokenHandler();
+            var handler   = new JwtSecurityTokenHandler();
             var jsonToken = handler.ReadToken(HttpContext.Session.GetString("token"));
-            int id = int.Parse(((JwtSecurityToken)jsonToken).Claims.FirstOrDefault(e => e.Type == "nameid")?.Value!);
-            var user = await this.GetUserByUserIdAsync(id);
+            int id        = int.Parse(((JwtSecurityToken)jsonToken).Claims.FirstOrDefault(e => e.Type == "nameid")?.Value!);
+            var user      = await this.GetUserByUserIdAsync(id);
             return user;
         }
 
@@ -26,16 +26,17 @@ namespace GroupProjectWebClient.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(string email, string password)
         {
-            if(await this.CheckLogin(email, password))
+            if (await this.CheckLogin(email, password))
             {
                 var user = await this.GetUserFromToken();
 
-				if (user?.RoleId == 1) return RedirectToAction("AdminHomePage", "Home", new { id = user?.UserId });
-				else return RedirectToAction("UserHomePage", "Home", new { id = user?.UserId }); ;
-			}
+                if (user?.RoleId == 1) return RedirectToAction("Dashboard", "Admin");
+                else return RedirectToAction("UserHomePage", "Home", new { id = user?.UserId });
+                ;
+            }
 
-			return RedirectToAction(nameof(Login), new { message = "Your email or password is wrong" });
-		}
+            return RedirectToAction(nameof(Login), new { message = "Your email or password is wrong" });
+        }
 
         public IActionResult Register(string message = "")
         {
@@ -43,7 +44,6 @@ namespace GroupProjectWebClient.Controllers
             return View();
         }
 
-        
 
         public async Task<IActionResult> Profile(int id, string message = "")
         {
@@ -56,7 +56,7 @@ namespace GroupProjectWebClient.Controllers
         public async Task<IActionResult> EditProfile(User user)
         {
             if (await this.EditUserAsync(user)) return RedirectToAction(nameof(Profile), routeValues: new { id = user.UserId, message = "Edit successfully!!!" });
-            else return RedirectToAction(nameof(Profile), routeValues: new { id = user.UserId, message = "Edit fail" });
+            else return RedirectToAction(nameof(Profile), routeValues: new { id                                = user.UserId, message = "Edit fail" });
         }
 
         public async Task<IActionResult> AdminUserManagement()
@@ -76,12 +76,11 @@ namespace GroupProjectWebClient.Controllers
         public async Task<IActionResult> UpdateUser(User user)
         {
             if (await this.EditUserAsync(user)) return RedirectToAction(nameof(UpdateUser), new { userId = user.UserId, noti = "Update successfully!!!" });
-            else return RedirectToAction(nameof(UpdateUser), new { userId = user.UserId, noti = "Update fail" });
+            else return RedirectToAction(nameof(UpdateUser), new { userId                                = user.UserId, noti = "Update fail" });
         }
 
         public async Task<IActionResult> DeleteUser(int userId)
         {
-
             await this.RemoveUserAsync(userId);
             return RedirectToAction(nameof(AdminUserManagement));
         }
@@ -108,7 +107,7 @@ namespace GroupProjectWebClient.Controllers
                 {
                     using (HttpResponseMessage res = await client.GetAsync(link))
                     {
-                        if(res.StatusCode is System.Net.HttpStatusCode.OK)
+                        if (res.StatusCode is System.Net.HttpStatusCode.OK)
                         {
                             HttpContext.Session.SetString("token", res.Content.ReadAsStringAsync().Result.ToString());
                             return true;
@@ -187,6 +186,7 @@ namespace GroupProjectWebClient.Controllers
             catch (Exception ex)
             {
             }
+
             return false;
         }
 
@@ -224,28 +224,28 @@ namespace GroupProjectWebClient.Controllers
             }
         }
 
-		public async Task<List<Category>> GetCategoriesAsync()
-		{
-			try
-			{
-				string link = $"http://localhost:5152/api/Categories/GetCategories";
-				using (HttpClient client = new HttpClient())
-				{
-					using (HttpResponseMessage res = await client.GetAsync(link))
-					{
-						using (HttpContent content = res.Content)
-						{
-							string data = content.ReadAsStringAsync().Result;
-							return JsonConvert.DeserializeObject<List<Category>>(data);
-						}
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-			}
+        public async Task<List<Category>> GetCategoriesAsync()
+        {
+            try
+            {
+                string link = $"http://localhost:5152/api/Categories/GetCategories";
+                using (HttpClient client = new HttpClient())
+                {
+                    using (HttpResponseMessage res = await client.GetAsync(link))
+                    {
+                        using (HttpContent content = res.Content)
+                        {
+                            string data = content.ReadAsStringAsync().Result;
+                            return JsonConvert.DeserializeObject<List<Category>>(data);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
 
-			return null!;
-		}
-	}
+            return null!;
+        }
+    }
 }
