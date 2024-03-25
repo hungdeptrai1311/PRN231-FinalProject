@@ -1,0 +1,101 @@
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model List<BusinessObject.Models.Product>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="images/icon.png">
+    <link rel="stylesheet" href="lib/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="lib/assets/plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="lib/assets/plugins/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="lib/assets/css/feathericon.min.css">
+    <link rel="stylehseet" href="https://cdn.oesmith.co.uk/morris-0.5.1.css">
+    <link rel="stylesheet" href="lib/assets/plugins/morris/morris.css">
+    <link rel="stylesheet" href="lib/assets/css/style1.css">
+</head>
+
+<body>
+<div class="main-wrapper">
+    <div class="header">
+        <div class="header-left">
+            <a href="/Group8_Project/home" class="logo">
+                <img src="images/logo.png" width="50" height="70" alt="logo"> <span class="logoclass">EightShoes</span>
+            </a>
+        </div>
+        <p style="text-align: center; font-size: 50px; font-family: sans-serif; color:#00bf6f ">
+            Hello ADMIN!!
+        </p>
+        <a href="javascript:void 0;" id="toggle_btn">
+            <i class="fe fe-text-align-left"></i>
+        </a>
+        <a class="mobile_btn" id="mobile_btn">
+            <i class="fas fa-bars"></i>
+        </a>
+        <ul class="nav user-menu">
+            <li class="nav-item dropdown noti-dropdown">
+                <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"> </a>
+                <div class="topnav-dropdown-header">
+                    <div class="noti-content">
+                        <ul class="notification-list">
+                        </ul>
+                    </div>
+                    <div class="topnav-dropdown-footer">
+                        <a href="#">View all Notifications</a>
+                    </div>
+                </div>
+            </li>
+
+        </ul>
+        <div class="top-nav-search">
+        </div>
+    </div>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-inner slimscroll">
+            <div id="sidebar-menu" class="sidebar-menu">
+                <ul>
+                    <li class="active">
+                        <a asp-controller="Admin" asp-action="Dashboard">
+                            <i class="fas fa-tachometer-alt"></i> <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="list-divider"></li>
+                    <li class="submenu">
+                        <a asp-controller="Admin" asp-action="ManageProduct">
+                            <i class="fas fa-suitcase"></i> <span> Manager Product </span> <span class="menu-arrow"></span>
+                        </a>
+                    </li>
+                    <li class="submenu">
+                        <a asp-controller="Admin" asp-action="Customers">
+                            <i class="fas fa-user"></i> <span> Customers </span> <span class="menu-arrow"></span>
+                        </a>
+                    </li>
+
+                    <li class="submenu">
+                        <a asp-controller="Admin" asp-action="EditEULA">
+                            <i class="fas fa-cog"></i> <span> Edit EULA </span> <span class="menu-arrow"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.html">
+                            <i class="fas fa-cog"></i> <span>Settings</span>
+                        </a>
+                    </li>
+                    <li class="list-divider"></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="page-wrapper">
+
+    </div>
+</div>
+</body>
+</html>
